@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartCart | Online Shopping</title>
+  <meta name="description" content="Shop electronics, fashion, home essentials and more with SmartCart.">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="announcement">✨ Smart shopping, happy living! &nbsp; | &nbsp; Demo shopping website</div>
+
+  <header class="header">
+    <a class="brand" href="#">
+      <span class="brand-icon">S</span>
+      <span>SmartCart<small>SHOP SMART. LIVE BETTER.</small></span>
+    </a>
+
+    <form class="search" id="searchForm">
+      <span>🔎</span>
+      <input id="searchInput" type="search" placeholder="Search phones, laptops, shoes..." aria-label="Search products">
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="header-actions">
+      <div class="profile-area">
+        <button class="outline-btn" id="loginBtn">👤 Login / Sign Up</button>
+        <div class="profile-menu" id="profileMenu" hidden>
+          <strong id="profileName">User</strong>
+          <small id="profileEmail">user@example.com</small>
+          <button id="myProfileBtn" type="button">My Profile</button>
+          <button id="logoutBtn" type="button">Logout</button>
+        </div>
+      </div>
+      <button class="outline-btn" id="wishlistBtn">♡ Wishlist <b id="wishCount">0</b></button>
+      <button class="outline-btn" id="ordersBtn">📦 Orders</button>
+      <button class="outline-btn" id="notificationsBtn">🔔 <b id="notificationCount">0</b></button>
+      <button class="outline-btn" id="adminBtn">⚙ Admin</button>
+      <button class="outline-btn" id="cartBtn">🛒 Cart <b id="cartCount">0</b></button>
+    </div>
+  </header>
+
+  <nav class="category-nav" id="categoryButtons">
+    <button class="category active" data-category="All">All Products</button>
+    <button class="category" data-category="Electronics">Electronics</button>
+    <button class="category" data-category="Mobiles">Mobiles</button>
+    <button class="category" data-category="Fashion">Fashion</button>
+    <button class="category" data-category="Home">Home & Living</button>
+    <button class="category" data-category="Beauty">Beauty</button>
+    <button class="category" data-category="Accessories">Accessories</button>
+    <button class="category" data-category="Books">Books</button>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">YOUR EVERYDAY SHOPPING DESTINATION</span>
+        <h1>Find your next<br><span>favourite thing.</span></h1>
+        <p>Discover amazing products, exciting deals and everyday essentials — all in one place.</p>
+        <button class="primary-btn" id="shopNow">Explore Products&nbsp; →</button>
+        <div class="hero-points"><span>✓ Easy Shopping</span><span>✓ Wide Selection</span><span>✓ Demo Checkout</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="shopping-bag">🛍️</div>
+        <div class="float-card float-one">🎧<small>Tech picks</small></div>
+        <div class="float-card float-two">👟<small>Fresh styles</small></div>
+        <div class="float-card float-three">⭐<small>Great finds</small></div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <article><span>🚚</span><div><strong>Convenient Shopping</strong><small>Browse from anywhere</small></div></article>
+      <article><span>💜</span><div><strong>Carefully Selected</strong><small>Products for every day</small></div></article>
+      <article><span>🔒</span><div><strong>Demo Checkout</strong><small>No real payment taken</small></div></article>
+      <article><span>🎁</span><div><strong>Discover More</strong><small>Something for everyone</small></div></article>
+    </section>
+
+    <section class="products-section" id="productsSection">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow purple-text">THE SMARTCART COLLECTION</span>
+          <h2>Explore our products ✨</h2>
+          <p>Little things that make everyday better.</p>
+        </div>
+        <span class="result-pill" id="resultCount">20 products</span>
+      </div>
+
+      <div class="quick-categories">
+        <button class="quick-card" data-quick="Mobiles">📱<span>Mobiles</span></button>
+        <button class="quick-card" data-quick="Electronics">💻<span>Electronics</span></button>
+        <button class="quick-card" data-quick="Fashion">👟<span>Fashion</span></button>
+        <button class="quick-card" data-quick="Home">🏠<span>Home</span></button>
+        <button class="quick-card" data-quick="Beauty">✨<span>Beauty</span></button>
+      </div>
+
+      <div class="smart-filters" aria-label="Product filters">
+        <label>Min price ₹<input id="minPrice" type="number" min="0" placeholder="0"></label>
+        <label>Max price ₹<input id="maxPrice" type="number" min="0" placeholder="Any"></label>
+        <label>Minimum rating<select id="ratingFilter"><option value="0">All ratings</option><option value="4">4★ & above</option><option value="4.5">4.5★ & above</option></select></label>
+        <label>Sort by<select id="sortProducts"><option value="default">Recommended</option><option value="price-asc">Price: Low to High</option><option value="price-desc">Price: High to Low</option><option value="rating-desc">Top Rated</option><option value="name-asc">Name: A to Z</option></select></label>
+        <button id="clearFilters" class="outline-btn" type="button">Clear Filters</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty-message" id="emptyMessage" hidden>
+        <span>🔍</span><h3>No products found</h3>
+        <p>Try another product name or category.</p>
+        <button class="primary-btn" id="resetSearch">Show All Products</button>
+      </div>
+
+      <div class="explore-more">
+        <p id="moreMessage">Explore more products from our collection.</p>
+        <button class="primary-btn" id="exploreMore">Explore More Products ↓</button>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div><span class="eyebrow">STAY IN THE LOOP</span><h2>Good finds, straight to you 💌</h2><p>Try our demo newsletter subscription.</p></div>
+      <form id="newsletterForm"><input type="email" placeholder="Enter your email" required><button class="primary-btn">Subscribe</button></form>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-icon">S</span><span>SmartCart</span></a><p>A colourful shopping website made for a college project.</p><small>© 2026 SmartCart · Demo project · No real payments</small></footer>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <!-- PRODUCT DETAILS -->
+  <div class="overlay" id="productDetailsOverlay"><section class="modal wide-modal"><div class="panel-heading"><h2>Product Details</h2><button class="close-btn" data-close="productDetailsOverlay">✕</button></div><div id="productDetailsContent" class="product-details-layout"></div></section></div>
+
+  <!-- CART -->
+  <div class="overlay" id="cartOverlay">
+    <section class="side-panel">
+      <div class="panel-heading"><h2>🛒 Your Cart</h2><button class="close-btn" data-close="cartOverlay">✕</button></div>
+      <div class="panel-content" id="cartItems"></div>
+      <div class="panel-footer"><div class="coupon-row"><input id="couponInput" placeholder="Coupon code (WELCOME10)"><button id="applyCoupon" type="button">Apply</button></div><p id="couponMessage" class="muted">Try WELCOME10 for 10% off (demo).</p><div class="total-row"><span>Subtotal</span><strong id="cartSubtotal">₹0</strong></div><div class="total-row"><span>Discount</span><strong id="discountAmount">−₹0</strong></div><div class="total-row"><span>Delivery charges</span><strong id="deliveryCharge">₹0</strong></div><div class="total-row grand-total"><span>Final payable</span><strong id="cartTotal">₹0</strong></div><p class="muted" id="deliveryMessage">Free delivery on orders ₹999 and above; otherwise ₹49.</p><button class="primary-btn full-btn" id="checkoutBtn">Proceed to Checkout →</button><button class="text-btn" id="continueShopping">Continue Shopping</button></div>
+    </section>
+  </div>
+
+  <!-- WISHLIST -->
+  <div class="overlay" id="wishlistOverlay">
+    <section class="side-panel">
+      <div class="panel-heading"><h2>💜 My Wishlist</h2><button class="close-btn" data-close="wishlistOverlay">✕</button></div>
+      <div class="panel-content" id="wishlistItems"></div>
+      <div class="panel-footer"><button class="primary-btn full-btn" data-close="wishlistOverlay">Continue Shopping</button></div>
+    </section>
+  </div>
+
+  <!-- LOGIN / SIGNUP -->
+
+
+  <div class="overlay" id="loginOverlay">
+    <section class="modal">
+      <div class="panel-heading"><h2 id="authTitle">Welcome Back 👋</h2><button class="close-btn" data-close="loginOverlay" type="button">✕</button></div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth="login" type="button">Login</button>
+        <button class="auth-tab" data-auth="signup" type="button">Sign Up</button>
+      </div>
+      <form id="authForm" class="auth-form">
+        <label id="nameLabel" for="authName" hidden>Full Name</label>
+        <input id="authName" type="text" placeholder="Enter your full name" autocomplete="name" hidden>
+        <label for="authEmail">Email Address</label>
+        <input id="authEmail" type="email" placeholder="Enter your email" autocomplete="email" required>
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password" placeholder="At least 6 characters" minlength="6" autocomplete="current-password" required>
+        <button class="primary-btn full-btn" id="authSubmit" type="submit">Login</button>
+        <p class="muted">Demo project: account details are saved only in this browser.</p>
+      </form>
+    </section>
+  </div>
+
+  <!-- CHECKOUT -->
+  <div class="overlay" id="checkoutOverlay">
+    <section class="modal checkout-modal">
+      <div class="panel-heading"><h2>🛍️ Secure Checkout</h2><button class="close-btn" data-close="checkoutOverlay">✕</button></div>
+      <div class="checkout-steps"><span id="stepDetails" class="step-active">1. Details</span><span id="stepPayment">2. Payment</span><span id="stepDone">3. Done</span></div>
+
+      <form id="checkoutForm" class="checkout-form">
+        <label for="customerName">Full Name</label><input id="customerName" required placeholder="Enter your name">
+        <label for="customerEmail">Email Address</label><input id="customerEmail" type="email" required placeholder="Enter your email">
+        <label for="customerPhone">Mobile Number</label><input id="customerPhone" type="tel" pattern="[0-9]{10}" maxlength="10" required placeholder="10-digit mobile number">
+        <label for="customerAddress">Delivery Address</label><textarea id="customerAddress" required placeholder="House, street, city, PIN code"></textarea>
+        <div class="total-row checkout-total"><span>Order Total</span><strong id="checkoutTotal">₹0</strong></div>
+        <button class="primary-btn full-btn" type="submit">Continue to Payment →</button>
+      </form>
+
+      <div id="processingScreen" class="demo-payment-screen" hidden><div class="spinner"></div><h3>Processing your order...</h3><p>Please wait while we prepare your demo checkout.</p></div>
+
+      <div id="paymentScreen" hidden class="payment-screen">
+        <p class="muted">Choose a payment method. All payments are simulated.</p>
+        <button class="payment-choice" data-payment="cod"><span>💵</span><span><strong>Cash on Delivery</strong><small>Pay when your order arrives (demo)</small></span><b>›</b></button>
+        <button class="payment-choice" data-payment="upi"><span>📱</span><span><strong>UPI Payment</strong><small>Google Pay · PhonePe · Paytm (demo)</small></span><b>›</b></button>
+        <button class="payment-choice" data-payment="qr"><span>🔳</span><span><strong>Scan QR Code</strong><small>Decorative demo QR only</small></span><b>›</b></button>
+        <button class="text-btn" id="backToDetails">← Back to details</button>
+      </div>
+
+      <div id="qrScreen" hidden class="demo-payment-screen">
+        <span class="demo-label">PHONEPE · UPI PAYMENT REQUEST</span><h3>Scan & Pay 📲</h3>
+        <p>Scan this QR using a UPI app. The order amount is included in the payment request.</p>
+        <div id="dynamicQrWrap" class="dynamic-qr-wrap"><div id="dynamicPaymentQr" aria-label="Dynamic UPI payment QR"></div></div>
+        <div class="total-row"><span>Payable Amount</span><strong id="qrTotal">₹0</strong></div>
+        <p class="muted" id="upiPayeeLabel">Pay to: KRUSHNA KISHOR DHOLE</p>
+        <a class="primary-btn full-btn" id="openUpiApp" href="#" rel="nofollow">Open UPI app</a>
+        <p class="payment-note">Important: This QR includes the amount, but this front-end demo cannot verify whether money reached the account. Do not mark an order as paid until you confirm the payment in your PhonePe/bank account. Automatic confirmation requires a supported merchant payment integration and backend.</p>
+        <button class="primary-btn full-btn" id="simulateFail">I couldn't pay / Payment not confirmed</button>
+        <button class="text-btn" id="qrBack">← Choose another payment method</button>
+      </div>
+
+      <div id="failedScreen" hidden class="demo-payment-screen"><div class="status-emoji">❌</div><h3>Payment Failed</h3><p>This is a simulated failure. No money was charged.</p><button class="primary-btn full-btn" id="retryPayment">Try Again</button><button class="payment-choice" id="failedCod">💵 <strong>Switch to Cash on Delivery</strong></button><button class="text-btn" id="failedBack">← Back to payment options</button></div>
+
+      <div id="successScreen" hidden class="demo-payment-screen"><div class="status-emoji">🎉</div><h3>Order Placed Successfully!</h3><p id="orderMessage">Your demo order has been placed.</p><div class="order-number" id="orderNumber"></div><p class="muted">This is a project simulation, not a real purchase.</p><button class="primary-btn full-btn" id="finishOrder">Continue Shopping</button></div>
+    </section>
+  </div>
+  
+<div class="overlay" id="profileOverlay">
+  <section class="modal">
+    <div class="panel-heading">
+      <h2>👤 My Profile</h2>
+      <button class="close-btn" data-close="profileOverlay">✕</button>
+    </div>
+
+    <div class="profile-details">
+      <div class="profile-avatar" id="profileModalAvatar">U</div>
+      <h2 id="profileModalName">User</h2>
+      <p id="profileModalEmail">user@example.com</p>
+
+      <p>Name: <strong id="profileDetailName"></strong></p>
+      <p>Email: <strong id="profileDetailEmail"></strong></p>
+      <form id="editProfileForm" class="auth-form"><label for="editProfileName">Edit name</label><input id="editProfileName" required maxlength="60" placeholder="Your full name"><button class="primary-btn full-btn" type="submit">Save Profile</button></form>
+      <hr><h3>📍 Delivery Addresses</h3><div id="addressList"></div>
+      <form id="addressForm" class="auth-form"><label for="addressLabel">Address label</label><input id="addressLabel" placeholder="Home / Work" required><label for="addressText">Full address</label><textarea id="addressText" placeholder="House, street, city, PIN code" required></textarea><button class="primary-btn full-btn" type="submit">Save Address</button></form>
+      <button class="primary-btn full-btn" id="profileLogoutBtn">Logout</button>
+    </div>
+  </section>
+</div>
+
+
+<div class="overlay" id="ordersOverlay"><section class="modal wide-modal"><div class="panel-heading"><h2>📦 My Orders</h2><button class="close-btn" data-close="ordersOverlay">✕</button></div><div id="ordersList" class="panel-content"></div></section></div>
+<div class="overlay" id="notificationsOverlay"><section class="modal"><div class="panel-heading"><h2>🔔 Notifications</h2><button class="close-btn" data-close="notificationsOverlay">✕</button></div><div id="notificationsList" class="panel-content"></div><div class="panel-footer"><button id="clearNotifications" class="outline-btn full-btn" type="button">Clear notifications</button></div></section></div>
+<div class="overlay" id="adminOverlay"><section class="modal wide-modal"><div class="panel-heading"><h2>⚙ Admin Dashboard <small class="demo-admin-note">(local demo)</small></h2><button class="close-btn" data-close="adminOverlay">✕</button></div>
+<div id="adminGate"><p class="muted">Admin-only demo area. Enter the local demo access code.</p><form id="adminLoginForm" class="auth-form"><label for="adminPasscode">Admin access code</label><input id="adminPasscode" type="password" required placeholder="Enter admin code"><button class="primary-btn full-btn" type="submit">Unlock Admin Dashboard</button><p class="muted">Demo code is documented in README.txt. This is not production security.</p></form></div>
+<div id="adminWorkspace" hidden><p class="muted">Manage products, orders, coupons and registered demo accounts. Data stays in this browser only.</p><div class="admin-summary" id="adminSummary"></div>
+<h3>Sales report</h3><div class="admin-summary" id="adminSalesSummary"></div><h3>Low-stock alerts</h3><div id="lowStockAlerts" class="admin-insight-list"></div><h3>Top-selling products</h3><div id="topSellingProducts" class="admin-insight-list"></div><h3>Admin activity log</h3><div id="adminActivityLog" class="admin-insight-list"></div>
+<h3>Add a new product</h3><form id="adminAddProductForm" class="admin-inline-form"><input id="newProductName" required maxlength="70" placeholder="Product name"><select id="newProductCategory"><option>Electronics</option><option>Mobiles</option><option>Fashion</option><option>Home</option><option>Beauty</option><option>Accessories</option><option>Books</option></select><input id="newProductPrice" type="number" min="1" required placeholder="Price ₹"><input id="newProductStock" type="number" min="0" value="10" required placeholder="Stock"><button class="primary-btn" type="submit">Add product</button></form><h3>Product and stock management</h3><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Product</th><th>Price (₹)</th><th>Stock</th><th>Save</th><th>Remove</th></tr></thead><tbody id="adminProducts"></tbody></table></div>
+<h3>Order management</h3><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Update</th></tr></thead><tbody id="adminOrders"></tbody></table></div>
+<h3>Coupon management</h3><form id="adminCouponForm" class="admin-inline-form"><input id="newCouponCode" required placeholder="Coupon code"><select id="newCouponType"><option value="percent">Percent off</option><option value="flat">Flat ₹ off</option></select><input id="newCouponValue" type="number" min="1" required placeholder="Value"><input id="newCouponMin" type="number" min="0" value="0" placeholder="Minimum cart ₹"><button class="primary-btn" type="submit">Add coupon</button></form><div id="adminCouponList"></div>
+<h3>Registered demo accounts</h3><div id="adminUsers"></div><p class="muted">Never store real customer data in this browser-only project.</p></div></section></div>
+
+</body>
+</html>
+
